@@ -53,7 +53,7 @@ makeFeedbacks cmd (a:[]) accArgs paths =
       OptionArg o          -> makeFeedbacks cmd [] ((name o):accArgs) paths
       PartialOptionArg cs  -> map (optionCandidateFeedback cmd accArgs) cs
       PathArg path         -> (commandFeedback cmd ((name path):accArgs)):makeFeedbacks cmd [] ((name path):accArgs) paths
-      PartialPathArg paths -> map (pathCandidateFeedback cmd accArgs) paths
+      PartialPathArg cs -> map (pathCandidateFeedback cmd accArgs) cs
 makeFeedbacks cmd (a:as) accArgs paths =
     case readArg cmd a accArgs paths of
       OptionArg o  -> makeFeedbacks cmd as ((name o):accArgs) paths

@@ -5,6 +5,7 @@ import GitDirHistory
 import GitCommandType
 import GitCommand
 import AddCommand
+import ResetCommand
 import Control.Applicative
 import Control.Monad
 import Control.Exception
@@ -46,8 +47,8 @@ run (cmd:args) = do
   case wd of
     Nothing -> cd cmd
     Just _ -> case lookUpCandidates cmd commandTypes [] of
-                Right AddCommandType -> do
-                   processCommand AddCommand args
+                Right AddCommandType -> processCommand AddCommand args
+                Right ResetCommandType -> processCommand ResetCommand args
                 Left types -> do
                    putFeedbacks $map commandAutocompletes types
 
