@@ -20,9 +20,8 @@ run ("clearDir":_) = clearHistory
 run xs = do
   r <- runGitProcess xs
   case r of
-    Right out -> putStr out
+    Right out -> putStr ((unwords xs) ++ "\ncompleted" ++ "\n" ++ out)
     Left err -> putStr err
-
 
 checkout::String -> IO ()
 checkout branch | Just remotePath <- stripPrefix "remotes/" branch = do

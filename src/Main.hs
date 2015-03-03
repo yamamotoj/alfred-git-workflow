@@ -5,6 +5,7 @@ import GitDirHistory
 import GitCommandType
 import GitCommand
 import AddCommand
+import FetchCommand
 import ResetCommand
 import Control.Applicative
 import Control.Monad
@@ -49,6 +50,7 @@ run (cmd:args) = do
     Just _ -> case lookUpCandidates cmd commandTypes [] of
                 Right AddCommandType -> processCommand AddCommand args
                 Right ResetCommandType -> processCommand ResetCommand args
+                Right FetchCommandType -> processCommand FetchCommand args
                 Left types -> do
                    putFeedbacks $map commandAutocompletes types
 
