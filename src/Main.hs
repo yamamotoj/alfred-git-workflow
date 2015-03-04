@@ -7,6 +7,7 @@ import GitCommand
 import AddCommand
 import FetchCommand
 import ResetCommand
+import PullCommand
 import Control.Applicative
 import Control.Monad
 import Control.Exception
@@ -51,6 +52,7 @@ run (cmd:args) = do
                 Right AddCommandType -> processCommand AddCommand args
                 Right ResetCommandType -> processCommand ResetCommand args
                 Right FetchCommandType -> processCommand FetchCommand args
+                Right PullCommandType -> processCommand PullCommand args
                 Left types -> do
                    putFeedbacks $map commandAutocompletes types
 

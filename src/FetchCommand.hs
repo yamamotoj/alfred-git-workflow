@@ -16,13 +16,9 @@ instance Candidate FetchCommand where
 
 instance GitCommand FetchCommand where
     commandType FetchCommand = FetchCommandType
-    commandOptions  FetchCommand  =
-        [
-         (["--all"], "", True)
-        ]
-
+    commandOptions  FetchCommand  = []
     processCommand cmd args = do
       repos <- Remote.candidates
-      putFeedbacks (makeFeedbacks cmd args []  repos)
+      putFeedbacks ((commandFeedback cmd args): makeFeedbacks cmd args []  repos)
 
     
