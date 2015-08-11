@@ -5,126 +5,20 @@ import System.IO
 import GitWorkflow
 import System.Process (readProcess, runInteractiveProcess, waitForProcess)
 import System.Exit
+type CommitHash = String
+data GitLog = GitLog { commit :: CommitHash
+                     , author :: String
+                     , date :: String
+                     , comment:: String
+                     }
+    
 
-readGitProcessInWorkingDirectory::String -> [String] -> IO (Either String String)
-readGitProcessInWorkingDirectory dir args = do
-  (_, stdout, stderr ,h) <- runInteractiveProcess  "git" args  (Just dir) Nothing
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  l <-  hGetLine stdout
-  putStrLn l
-  exitCode <- waitForProcess h
-  case exitCode of
-    ExitSuccess -> do
-                  return $Right l
-    ExitFailure _ -> do
-                  err <- hGetContents stderr
-                  return $Left err
+readLog:: IO[String]
+readLog = do
+  r <- runGitProcess ["log"]
+  case r of
+    Right logs -> return [logs]
+    Left _ -> return []
+
+
+              
